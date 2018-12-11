@@ -21,13 +21,13 @@ class MyAppState extends State<MyApp> {
 
   PdfDocument _generateDocument(PdfPageFormat format) {
     print("Generate Pdf document $format");
-    final pdf = new PdfDocument(deflate: zlib.encode);
-    final page = new PdfPage(pdf, pageFormat: format);
+    final pdf = PdfDocument(deflate: zlib.encode);
+    final page = PdfPage(pdf, pageFormat: format);
     final g = page.getGraphics();
-    final font = PdfFont(pdf);
+    final font = g.defaultFont;
     final top = page.pageFormat.height;
 
-    g.setColor(PdfColor(0.0, 1.0, 1.0));
+    g.setColor(PdfColor(0.0, 1.0, 0.0));
     g.drawRect(50.0 * PdfPageFormat.mm, top - 80.0 * PdfPageFormat.mm,
         100.0 * PdfPageFormat.mm, 50.0 * PdfPageFormat.mm);
     g.fillPath();
@@ -71,8 +71,8 @@ class MyAppState extends State<MyApp> {
     print("Print Screen ${im.width}x${im.height} ...");
 
     Printing.layoutPdf(onLayout: (PdfPageFormat format) {
-      final pdf = new PdfDocument(deflate: zlib.encode);
-      final page = new PdfPage(pdf, pageFormat: format);
+      final pdf = PdfDocument(deflate: zlib.encode);
+      final page = PdfPage(pdf, pageFormat: format);
       final g = page.getGraphics();
 
       // Center the image

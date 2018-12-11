@@ -29,7 +29,7 @@
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"printPdf" isEqualToString:call.method]) {
-    [self printPdf:[call.arguments objectForKey:@"doc"]];
+    [self printPdf:[call.arguments objectForKey:@"name"]];
     result(@1);
   } else if ([@"sharePdf" isEqualToString:call.method]) {
     [self sharePdf:[call.arguments objectForKey:@"doc"]
@@ -44,30 +44,41 @@
   }
 }
 
-- (void)printPdf:(nonnull FlutterStandardTypedData*)data {
+- (void)printPdf:(nonnull NSString*)name {
   BOOL printing = [UIPrintInteractionController isPrintingAvailable];
   if (!printing) {
     NSLog(@"printing not available");
     return;
   }
 
-  BOOL dataOK = [UIPrintInteractionController canPrintData:[data data]];
-  if (!dataOK)
-    NSLog(@"data not ok to be printed");
+  NSLog(@"Print name: %@", name);
 
+  //  BOOL dataOK = [UIPrintInteractionController canPrintData:[data
+  //  valueForKey:@"name"]]; if (!dataOK)
+  //    NSLog(@"data not ok to be printed");
+  //
   UIPrintInteractionController* controller =
       [UIPrintInteractionController sharedPrintController];
   [controller setDelegate:self];
-  [controller setPrintingItem:[data data]];
 
-  UIPrintInteractionCompletionHandler completionHandler =
-      ^(UIPrintInteractionController* printController, BOOL completed,
-        NSError* error) {
-        if (!completed && error) {
-          NSLog(@"FAILED! due to error in domain %@ with error code %u",
-                error.domain, (unsigned int)error.code);
-        }
-      };
+  UIPrintInfo* printInfo = [UIPrintInfo printInfo];
+  printInfo.jobName = name;
+  printInfo.outputType = UIPrintInfoOutputGeneral;
+  controller.printInfo = printInfo;
+  //  [controller setPrintingItem:[data data]];
+  [controller setPrintPageRenderer:<#(UIPrintPageRenderer * _Nullable) #>]
+
+      CGContextDrawPDFPage example
+
+          //
+          UIPrintInteractionCompletionHandler completionHandler =
+              ^(UIPrintInteractionController* printController, BOOL completed,
+                NSError* error) {
+                if (!completed && error) {
+                  NSLog(@"FAILED! due to error in domain %@ with error code %u",
+                        error.domain, (unsigned int)error.code);
+                }
+              };
 
   [controller presentAnimated:YES completionHandler:completionHandler];
 }
