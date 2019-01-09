@@ -10,7 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  pdf: "^1.1.0"
+    #pdf: "^1.1.0"
+  pdf:
+    path: /home/bernhard/development/packages/pdfunicode/dart_pdf/pdf
 
 flutter:
   plugin:

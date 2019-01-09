@@ -23,7 +23,8 @@ class MyAppState extends State<MyApp> {
     final pdf = PdfDocument(deflate: zlib.encode);
     final page = PdfPage(pdf, pageFormat: PdfPageFormat.a4);
     final g = page.getGraphics();
-    final font = PdfFont(pdf);
+    final font = PdfFont.courier(pdf);
+    //final font = PdfFont(pdf);
     final top = page.pageFormat.height;
 
     g.setColor(PdfColor(0.0, 1.0, 1.0));
