@@ -172,6 +172,26 @@ class PdfGraphics {
     }
     buf.putString(" Tj ET\n");
   }
+/// This draws a string.
+  ///
+  /// @param x coordinate
+  /// @param y coordinate
+  /// @oaran s String to draw
+  void drawStringUniCode(PdfFont font, size, String s, bool unicode , double x, double y) {
+    if (!page.fonts.containsKey(font.name)) {
+      page.fonts[font.name] = font;
+    }
+
+    buf.putString("BT $x $y Td ${font.name} $size Tf ");
+    if (font.unicode   || unicode) {
+      buf.putTextUtf16(s);
+    } else {
+      buf.putText(s);
+    }
+    buf.putString(" Tj ET\n");
+  }
+
+
 
   /// Sets the color for drawing
   ///
