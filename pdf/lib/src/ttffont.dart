@@ -85,6 +85,7 @@ class PdfTtfFont extends PdfFont {
     params["/Widths"] = widthsObject.ref();
     params["/FontDescriptor"] = descriptor.ref();
     params["/Encoding"] = PdfStream.string("/Identity-H");
-//    params["/ToUnicode"] = unicodeCMap.ref();
+    //FIXME TEST 
+    params["/ToUnicode"] = unicodeCMap.ref();
   }
 }
