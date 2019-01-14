@@ -177,15 +177,13 @@ class PdfGraphics {
   /// @param x coordinate
   /// @param y coordinate
   /// @oaran s String to draw
-  void drawStringUniCode(PdfFont font, size, List<int> s, bool unicode , double x, double y) {
+  void drawStringUniCode(PdfFont font, size, String s,  double x, double y) {
     if (!page.fonts.containsKey(font.name)) {
       page.fonts[font.name] = font;
     }
 
     buf.putString("BT $x $y Td ${font.name} $size Tf ");
-    if (font.unicode   || unicode == true) {
-      buf.putBytes(s);
-    }
+      buf.putStringUtf16(s);
     buf.putString(" Tj ET\n");
   }
 
