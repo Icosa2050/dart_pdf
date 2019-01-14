@@ -14,7 +14,8 @@ dependencies:
     git: 
       url: https://github.com/Icosa2050/dart_pdf
       path: pdf
-      ref: 685e83d11137172ff52f176ae779f53657c6756a
+      ref: unicode
+      #ref: 685e83d11137172ff52f176ae779f53657c6756a
 flutter:
   plugin:
     androidPackage: net.nfet.flutter.printing
